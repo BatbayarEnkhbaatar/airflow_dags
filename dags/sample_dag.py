@@ -17,7 +17,7 @@ def _training_model(model):
     return randint(1, 10)
 
 with DAG("my_dag",start_date=datetime(2021, 1 ,1),
-         schedule_interval='@daily', catchup=False) as dag:
+         schedule_interval='@hourly', catchup=False) as dag:
     training_model_tasks = [
     PythonOperator(
     task_id=f"training_model_{model_id}",
