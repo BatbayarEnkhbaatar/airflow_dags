@@ -119,7 +119,7 @@ with DAG(
 ) as dag:
 
     PythonOperator(
-        task_id=f"Dejon_dataPipeline_{datetime.today()}",
+        task_id=f"Dejon_dataPipeline",
         python_callable=waterMeasuring()
     )
 
