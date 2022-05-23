@@ -18,12 +18,12 @@ import csv
 # from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 # import getWaterMeasuringList as wml
-
-def waterMeasuring():
-
-    todays_date = date.today()
-    current_year = todays_date.year
-    current_month = todays_date.month
+todays_date = date.today()
+year = todays_date.year
+month = todays_date.month
+def waterMeasuring(year, month):
+    current_year = year
+    current_month = month
     pageNo=1
     numOfRows=31
     resultType="JSON"
@@ -117,8 +117,8 @@ with DAG(
     task_id="Dejon_dataPipeline_01",
     python_callable = waterMeasuring,
     op_kwargs={
-        "year" : year,
-        "month" : month
+        "year" : todays_date.year,
+        "month" : todays_date.month
         }
     )
 
