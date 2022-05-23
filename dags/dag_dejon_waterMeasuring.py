@@ -1,6 +1,12 @@
 
 from datetime import datetime, timedelta
 from textwrap import dedent
+from datetime import date
+
+todays_date = date.today()
+year = date.year
+month = date.month
+
 
 # The DAG object; we'll need this to instantiate a DAG
 from airflow import DAG
@@ -19,24 +25,13 @@ def waterMeasuring():
     current_year = todays_date.year
     current_month = todays_date.month
     pageNo=1
-    numOfRows=1000
+    numOfRows=31
     resultType="JSON"
     ptNoList=["3008A40", "2012F50"]
     wmyrList=[current_year]
     wmodList=[current_month]
     # wmyrList=["2012", "2013", "2014", "2015", "2016", "2017","2018","2019", "2020", "2021", "2022"]
     # wmodList=["01","02","03", "04","05","06","07","08","09","10","11","12"]
-
-    #### Parameters Values
-    Payload = {
-        "serviceKey" : "/S1CuHzopeMWDtsc2q26Ezp5Vgpgf2XGBYzYZehUCBgBQpHaZ+GvLIbar8Q+MT7zAliK60Rzoj9kEDMZlIhI4Q==",
-        "pageNo" : pageNo,
-        "numOfRows" : numOfRows,
-        "resultType" :  resultType,
-        "ptNoList" : ptNoList,
-        "wmyrList": wmyrList ,
-        "wmodList" : wmodList
-    }
 
     base_url = "http://apis.data.go.kr/1480523/WaterQualityService"
     # function = "/getRealTimeWaterQualityList"
@@ -88,7 +83,7 @@ def waterMeasuring():
 
 
 with DAG(
-    'tutorial',
+    'Dejon_Piple_Dag_001',
     # These args will get passed on to each operator
     # You can override them on a per-task basis during operator initialization
     default_args={
@@ -96,8 +91,8 @@ with DAG(
         'email': ['batbayar@northstar.kr.co'],
         'email_on_failure': False,
         'email_on_retry': False,
-        'retries': 1,
-        'retry_delay': timedelta(minutes=5),
+        'retries': 2,
+        'retry_delay': timedelta(days=1),
         # 'queue': 'bash_queue',
         # 'pool': 'backfill',
         # 'priority_weight': 10,
@@ -119,8 +114,12 @@ with DAG(
 ) as dag:
 
     PythonOperator(
-        task_id=f"Dejon_dataPipeline",
-        python_callable=waterMeasuring()
+    task_id="Dejon_dataPipeline_01",
+    python_callable = waterMeasuring,
+    op_kwargs={
+        "year" : year,
+        "month" : month
+        }
     )
 
 
