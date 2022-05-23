@@ -5,7 +5,9 @@ from textwrap import dedent
 # The DAG object; we'll need this to instantiate a DAG
 from airflow import DAG
 from datetime import date
-
+import requests
+import time as tm
+import csv
 # Operators; we need this to operate!
 # from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
