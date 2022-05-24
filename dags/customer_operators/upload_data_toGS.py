@@ -22,7 +22,7 @@ def upload_data(connec_id, bucket_name, source_file_name):
         gcs_hook.upload(
             bucket_name= bucket_name,
             object_name= d_file,
-            filename=source_file_name
+            filename=d_file
         )
         return True
     except Exception as e:
