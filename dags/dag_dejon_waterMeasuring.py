@@ -37,7 +37,7 @@ with DAG(
 ) as dag:
 
     PythonOperator(
-    task_id="Dejon_dataPipeline_01",
+    task_id="WaterMeasuring_data_to_Google_Storage",
     python_callable = waterMeasuring,
     op_kwargs={
         "year" : todays_date.year,
