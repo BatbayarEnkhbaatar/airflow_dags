@@ -5,7 +5,7 @@ from datetime import date
 from customer_operators.upload_to_gcs import  waterMeasuring
 todays_date = date.today()
 with DAG(
-    'Dejon_WaterMeasuring_data_to_Google_Storage_Dag_001',
+    'dejon_WaterMeasuring',
     # These args will get passed on to each operator
     # You can override them on a per-task basis during operator initialization
     default_args={
