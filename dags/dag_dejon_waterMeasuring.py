@@ -1,26 +1,40 @@
-
 from datetime import datetime, timedelta
-from textwrap import dedent
-from datetime import date
-
-todays_date = date.today()
-year = date.year
-month = date.month
-
-
-# The DAG object; we'll need this to instantiate a DAG
 from airflow import DAG
 from datetime import date
 import requests
 import time as tm
 import csv
-# Operators; we need this to operate!
-# from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
-# import getWaterMeasuringList as wml
+
+todays_date = date.today()
+year = date.year
+month = date.month
+
 todays_date = date.today()
 year = todays_date.year
 month = todays_date.month
+
+from google.cloud import storage
+from datetime import date
+
+### Upload csv file to My bucket on GCP
+
+def upload_blob(bucket_name, source_file_name, destination_blob_name):
+    """Uploads a file to the bucket."""
+    try:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(destination_blob_name)
+
+        blob.upload_from_filename(source_file_name)
+
+        print(
+            f"File {source_file_name} uploaded to {destination_blob_name}"
+        )
+        return True
+    except Exception as e:
+        return e
+
 def waterMeasuring(year, month):
     current_year = year
     current_month = month
@@ -47,12 +61,13 @@ def waterMeasuring(year, month):
         res = r['getWaterMeasuringList']
         return res['item']
 
-
+    file_name = "WaterMeasuringList.csv"
     for item in range(0, len(ptNoList)):
         for i in range(0, len(wmyrList)):
             for j in range(0, len(wmodList)):
                 print("TARGET:  ", ptNoList[item], "YEAR: = ", wmyrList[i], "MONTH:  ", wmodList[j])
-                data_file = open("WaterMeasuringList.csv", 'a')
+
+                data_file = open(file_name, 'a')
                 Payload = {
                     "serviceKey": "/S1CuHzopeMWDtsc2q26Ezp5Vgpgf2XGBYzYZehUCBgBQpHaZ+GvLIbar8Q+MT7zAliK60Rzoj9kEDMZlIhI4Q==",
                     "pageNo": pageNo,
@@ -77,13 +92,21 @@ def waterMeasuring(year, month):
                     csv_writer.writerow(row.values())
 
                 data_file.close()
+    source_file_name = file_name
+    bucket_name = "dejon-data-bucket"
+    current = date.today()
+    uploaded_date = current.strftime("%Y-%m")
+    destination_blob_name = source_file_name + "_" + uploaded_date
+
+    upload_blob(bucket_name=bucket_name, source_file_name=source_file_name, destination_blob_name=destination_blob_name)
+
     ### Main program
     return "Done"
 
 
 
 with DAG(
-    'Dejon_WaterMeasuring_data_PipeLine_Dag_001',
+    'Dejon_WaterMeasuring_data_to_Google_Storage_Dag_001',
     # These args will get passed on to each operator
     # You can override them on a per-task basis during operator initialization
     default_args={
@@ -92,7 +115,7 @@ with DAG(
         'email_on_failure': False,
         'email_on_retry': False,
         'retries': 2,
-        'retry_delay': timedelta(hours=2),
+        'retry_delay': timedelta(hours=1),
         # 'queue': 'bash_queue',
         # 'pool': 'backfill',
         # 'priority_weight': 10,
@@ -107,7 +130,7 @@ with DAG(
         # 'trigger_rule': 'all_success'
     },
     description='A simple tutorial DAG',
-    schedule_interval=timedelta(days=1),
+    schedule_interval=timedelta(minutes=5),
     start_date=datetime(2022, 5, 23),
     catchup=False,
     tags=['Data Pipe Line '],
