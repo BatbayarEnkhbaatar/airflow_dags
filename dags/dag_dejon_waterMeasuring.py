@@ -20,14 +20,14 @@ with DAG(
 
     },
     description='A simple tutorial DAG',
-    schedule_interval=timedelta(minutes=5),
+    schedule_interval=timedelta(minutes=2),
     start_date=datetime(2022, 5, 23),
     catchup=False,
     tags=['Data Pipe Line '],
 
 ) as dag:
     ScrapingData = PythonOperator(
-    task_id="WaterMeasuring_data_to_Google_Storage",
+    task_id="Scraping_WaterMeasuring_data",
     python_callable = waterMeasuring,
     op_kwargs={
         "year" : todays_date.year,
