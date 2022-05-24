@@ -68,4 +68,4 @@ def waterMeasuring(year, month):
                 data_file.close()
 
     return "Done"
-waterMeasuring(2013, "08")
+# waterMeasuring(2013, "08")
