@@ -24,8 +24,10 @@ def upload_data(connec_id, bucket_name, source_file_name):
             object_name= d_file,
             filename=d_file
         )
+        print("success")
         return True
     except Exception as e:
+        print(e)
         return e
 
 # upload_data(connec_id="Dejon_data_Google_Storage", bucket_name="dejon-data-bucket", source_file_name="WaterMeasuringList.csv")
