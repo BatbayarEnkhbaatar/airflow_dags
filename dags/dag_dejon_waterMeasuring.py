@@ -2,7 +2,9 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import date
-from customer_operators.upload_to_gcs import  waterMeasuring
+from customer_operators.scraping_data import  waterMeasuring
+from customer_operators.upload_data_toGS import upload_data
+
 todays_date = date.today()
 with DAG(
     'dejon_WaterMeasuring',
@@ -15,18 +17,7 @@ with DAG(
         'email_on_retry': False,
         'retries': 2,
         'retry_delay': timedelta(hours=1),
-        # 'queue': 'bash_queue',
-        # 'pool': 'backfill',
-        # 'priority_weight': 10,
-        # 'end_date': datetime(2025, 1, 1),
-        # 'wait_for_downstream': False,
-        # 'sla': timedelta(hours=2),
-        # 'execution_timeout': timedelta(seconds=300),
-        # 'on_failure_callback': some_function,
-        # 'on_success_callback': some_other_function,
-        # 'on_retry_callback': another_function,
-        # 'sla_miss_callback': yet_another_function,
-        # 'trigger_rule': 'all_success'
+
     },
     description='A simple tutorial DAG',
     schedule_interval=timedelta(minutes=5),
@@ -35,8 +26,7 @@ with DAG(
     tags=['Data Pipe Line '],
 
 ) as dag:
-
-    PythonOperator(
+    ScrapingData = PythonOperator(
     task_id="WaterMeasuring_data_to_Google_Storage",
     python_callable = waterMeasuring,
     op_kwargs={
@@ -44,5 +34,15 @@ with DAG(
         "month" : todays_date.month
         }
     )
+    UploadData = PythonOperator(
+    task_id="Upload_Data_to_GS",
+    python_callable = upload_data,
+    op_kwargs={
+        "connec_id" : "Dejon_data_Google_Storage",
+        "bucket_name" : "dejon-data-bucket",
+        "source_file_name" : "WaterMeasuringList.csv"
+        }
+    )
 
+    ScrapingData >> UploadData # Tasks Sequence
 
