@@ -1,9 +1,7 @@
-from datetime import date
-todays_date = date.today()
-year = todays_date.year
-month = todays_date.month
+
 from datetime import date
 from airflow.providers.google.cloud.hooks.gcs import GCSHook
+import os
 todays_date = date.today()
 year = todays_date.year
 month = todays_date.month
@@ -19,7 +17,7 @@ def upload_data(connec_id, bucket_name, source_file_name):
         # bucket = storage_client.bucket(bucket_name)
         # blob = bucket.blob(destination_blob_name)
         # blob.upload_from_filename(f"{source_file_name}.csv")
-        d_file = f"{source_file_name}.csv"
+        d_file = os.path("${AIRFLOW_HOME}/tmp/", f"{source_file_name}".csv)
         gcs_hook = GCSHook(connec_id)
         gcs_hook.upload(
             bucket_name= bucket_name,
