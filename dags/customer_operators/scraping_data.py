@@ -43,8 +43,8 @@ def waterMeasuring(year, month):
         for i in range(0, len(wmyrList)):
             for j in range(0, len(wmodList)):
                 print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j])
-                file_path = os.path.join("${AIRFLOW_HOME}/tmp/", file_name)
-                data_file = open(file_path, 'w')
+                # file_path = os.path.join("${AIRFLOW_HOME}/tmp/", file_name)
+                data_file = open(file_name, 'w')
                 Payload = {
                     "serviceKey": "/S1CuHzopeMWDtsc2q26Ezp5Vgpgf2XGBYzYZehUCBgBQpHaZ+GvLIbar8Q+MT7zAliK60Rzoj9kEDMZlIhI4Q==",
                     "pageNo": pageNo,
