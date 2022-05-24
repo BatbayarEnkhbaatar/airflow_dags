@@ -40,7 +40,7 @@ with DAG(
     op_kwargs={
         "connec_id" : "Dejon_data_Google_Storage",
         "bucket_name" : "dejon-data-bucket",
-        "source_file_name" : "WaterMeasuringList.csv"
+        "source_file_name" : "WaterMeasuringList"
         }
     )
 
