@@ -27,7 +27,7 @@ with DAG(
 
 ) as dag:
     ScrapingData = PythonOperator(
-    task_id="Scraping_WaterMeasuring_data",
+    task_id="Scraping_WaterMeasuring_Data",
     python_callable = waterMeasuring,
     op_kwargs={
         "year" : todays_date.year,
@@ -35,7 +35,7 @@ with DAG(
         }
     )
     UploadData = PythonOperator(
-    task_id="Upload_Data_to_GS",
+    task_id="Upload_scrapped_data_to_GS",
     python_callable = upload_data,
     op_kwargs={
         "connec_id" : "Dejon_data_Google_Storage",
