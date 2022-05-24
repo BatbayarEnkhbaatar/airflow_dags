@@ -15,6 +15,30 @@ todays_date = date.today()
 year = todays_date.year
 month = todays_date.month
 
+
+### Upload csv file to My bucket on GCP
+
+def upload_data(bucket_name, source_file_name, destination_blob_name):
+    """Uploads a file to the bucket."""
+    try:
+        gcp_conn_id = "Dejon_data_Google_Storage"
+
+        # storage_client = storage.Client()
+        # bucket = storage_client.bucket(bucket_name)
+        # blob = bucket.blob(destination_blob_name)
+        # blob.upload_from_filename(f"{source_file_name}.csv")
+        d_file = f"{source_file_name}.csv"
+        gcs_hook = GCSHook(gcp_conn_id)
+        gcs_hook.upload(
+            bucket_name= bucket_name,
+            object_name= d_file,
+            filename=source_file_name
+        )
+        return True
+    except Exception as e:
+        return e
+
+
 def waterMeasuring(year, month):
     current_year = year
     current_month = month
@@ -74,28 +98,6 @@ def waterMeasuring(year, month):
     current = date.today()
     uploaded_date = current.strftime("%Y-%m")
     destination_blob_name = source_file_name + "_" + uploaded_date
-    upload_blob(bucket_name=bucket_name, source_file_name=source_file_name, destination_blob_name=destination_blob_name)
+    upload_data(bucket_name=bucket_name, source_file_name=source_file_name, destination_blob_name=destination_blob_name)
     return "Done"
 
-
-### Upload csv file to My bucket on GCP
-
-def upload_blob(bucket_name, source_file_name, destination_blob_name):
-    """Uploads a file to the bucket."""
-    try:
-        gcp_conn_id = "Dejon_data_Google_Storage"
-
-        # storage_client = storage.Client()
-        # bucket = storage_client.bucket(bucket_name)
-        # blob = bucket.blob(destination_blob_name)
-        # blob.upload_from_filename(f"{source_file_name}.csv")
-        d_file = f"{source_file_name}.csv"
-        gcs_hook = GCSHook(gcp_conn_id)
-        gcs_hook.upload(
-            bucket_name= bucket_name,
-            object_name= d_file,
-            filename=source_file_name
-        )
-        return True
-    except Exception as e:
-        return e
