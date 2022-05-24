@@ -35,7 +35,7 @@ with DAG(
         }
     )
     UploadData = PythonOperator(
-    task_id="Upload_scrapped_data_to_GS",
+    task_id="Upload_Scrapped_Data2GS",
     python_callable = upload_data,
     op_kwargs={
         "connec_id" : "Dejon_data_Google_Storage",
