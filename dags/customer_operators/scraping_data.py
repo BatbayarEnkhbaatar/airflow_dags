@@ -1,55 +1,28 @@
-
-from datetime import date
-from airflow.providers.google.cloud.hooks.gcs import GCSHook
-todays_date = date.today()
-year = todays_date.year
-month = todays_date.month
-
 import requests
 import time as tm
 import csv
 
 from datetime import date
 
-todays_date = date.today()
-year = todays_date.year
-month = todays_date.month
-
-
-### Upload csv file to My bucket on GCP
-
-def upload_data(bucket_name, source_file_name, destination_blob_name):
-    """Uploads a file to the bucket."""
-    try:
-        gcp_conn_id = "Dejon_data_Google_Storage"
-
-        # storage_client = storage.Client()
-        # bucket = storage_client.bucket(bucket_name)
-        # blob = bucket.blob(destination_blob_name)
-        # blob.upload_from_filename(f"{source_file_name}.csv")
-        d_file = f"{source_file_name}.csv"
-        gcs_hook = GCSHook(gcp_conn_id)
-        gcs_hook.upload(
-            bucket_name= bucket_name,
-            object_name= d_file,
-            filename=source_file_name
-        )
-        return True
-    except Exception as e:
-        return e
-
+# todays_date = date.today()
+# year = todays_date.year
+# month = todays_date.month
 
 def waterMeasuring(year, month):
-    current_year = year
-    current_month = month
+
+
     pageNo=1
     numOfRows=31
+
     resultType="JSON"
     ptNoList=["3008A40", "2012F50"]
-    wmyrList=[current_year]
-    wmodList=[current_month]
-    # wmyrList=["2012", "2013", "2014", "2015", "2016", "2017","2018","2019", "2020", "2021", "2022"]
-    # wmodList=["01","02","03", "04","05","06","07","08","09","10","11","12"]
+    # gcp_conn_id = "Dejon_data_Google_Storage"
+    # gcp_conn_id = gcp_conn_id
+    #
+    wmyrList=[year]
+    wmodList=[month]
+    # wmyrList=["2012", "2013", "2014", "2015", "2016", "2017","2018","2019", "2020", "2021", "2022", {year}]
+    # wmodList=["01","02","03", "04","05","06","07","08","09","10","11","12", {month}]
 
     base_url = "http://apis.data.go.kr/1480523/WaterQualityService"
     # function = "/getRealTimeWaterQualityList"
@@ -93,11 +66,6 @@ def waterMeasuring(year, month):
                     csv_writer.writerow(row.values())
 
                 data_file.close()
-    source_file_name = file_name
-    bucket_name = "Dejon-data-bucket"
-    current = date.today()
-    uploaded_date = current.strftime("%Y-%m")
-    destination_blob_name = source_file_name + "_" + uploaded_date
-    upload_data(bucket_name=bucket_name, source_file_name=source_file_name, destination_blob_name=destination_blob_name)
-    return "Done"
 
+    return "Done"
+waterMeasuring(2013, "08")
