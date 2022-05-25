@@ -68,7 +68,7 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
                 #
                 # data_file.close()
                 with tempfile.TemporaryDirectory() as tmp_dir:
-                    tmp_path = os.path.join(tmp_dir, "tmp_data")
+                    tmp_path = os.path.join(tmp_dir, "tmp/")
                     with open(tmp_path, 'w') as file:
                         csv_writer = csv.writer(file)
                         count = 0
