@@ -71,7 +71,9 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
 
                         file.close()
                     obj_name = tmp_path+str(year)+str(month)+".csv"
-                    print(obj_name, "the Object was created")
+                    print(obj_name, "THE OBJECT FILE WAS CREATED SUCCESSFULLY")
+                    print(gcp_conn_id, "GCP CONNECTION IS BEING USED")
+                    print(gcs_bucket, "GCP BUCKET IS BEING USED")
 
                     gcs_hook = GCSHook(gcp_conn_id)
                     gcs_hook.upload(
