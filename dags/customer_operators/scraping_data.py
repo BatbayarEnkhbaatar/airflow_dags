@@ -56,18 +56,7 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
                 }
                 #  API ACCESS FUNCTIONS ###
                 data = access_api(function, params=Payload)
-                tmp_file = tempfile.mkstemp()
-                # data_file = open(file_name, 'w')
-                # csv_writer = csv.writer(data_file)
-                # count = 0
-                # for row in data:
-                #     if count == 0:
-                #         header = row.keys()
-                #         csv_writer.writerow(header)
-                #         count += 1
-                #     csv_writer.writerow(row.values())
-                #
-                # data_file.close()
+                tmp_file = "data"
                 with tempfile.TemporaryDirectory() as tmp_dir:
                     tmp_path = os.path.join(tmp_dir, tmp_file)
                     with open(tmp_path, 'w') as file:
