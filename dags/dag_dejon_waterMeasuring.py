@@ -3,7 +3,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import date
 from customer_operators.scraping_data import  waterMeasuring
-from customer_operators.upload_data_toGS import upload_data
+from customer_operators.with_google_bucket import upload_csv_toGS
 
 todays_date = date.today()
 with DAG(
@@ -34,15 +34,6 @@ with DAG(
         "month" : todays_date.month
         }
     )
-    UploadData = PythonOperator(
-    task_id="Upload_Scrapped_Data2GS",
-    python_callable = upload_data,
-    op_kwargs={
-        "connec_id" : "Dejon_data_Google_Storage",
-        "bucket_name" : "dejon-data-bucket",
-        "source_file_name" : "WaterMeasuringList"
-        }
-    )
 
-    ScrapingData >> UploadData # Tasks Sequence
+    ScrapingData
 

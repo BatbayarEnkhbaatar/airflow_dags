@@ -1,8 +1,7 @@
 import requests
 import time as tm
 import csv
-import os
-from datetime import date
+import with_google_bucket
 
 # todays_date = date.today()
 # year = todays_date.year
@@ -66,6 +65,6 @@ def waterMeasuring(year, month):
                     csv_writer.writerow(row.values())
 
                 data_file.close()
-
+    with_google_bucket.upload_csv_toGS(file_name)
     return "Done"
 # waterMeasuring(2013, "08")
