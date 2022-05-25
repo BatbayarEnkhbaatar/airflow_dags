@@ -32,7 +32,7 @@ with DAG(
     op_kwargs={
         "year" : todays_date.year,
         "month" : todays_date.month,
-        "gcp_conn_id": "Dejon_data_Google_Storage",
+        "gcp_conn_id": "airflow_gke_gcs_conn_id",
         "gcs_bucket": "dejon-data-bucket"
         }
     )
