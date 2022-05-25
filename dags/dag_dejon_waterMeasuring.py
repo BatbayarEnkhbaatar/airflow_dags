@@ -31,7 +31,9 @@ with DAG(
     python_callable = waterMeasuring,
     op_kwargs={
         "year" : todays_date.year,
-        "month" : todays_date.month
+        "month" : todays_date.month,
+        "gcp_conn_id": "Dejon_data_Google_Storage",
+        "gcs_bucket": "dejon-data-bucket"
         }
     )
 
