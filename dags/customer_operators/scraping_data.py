@@ -92,4 +92,4 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
     )
     # with_google_bucket.upload_csv_toGS(file_name)
     return "Done"
-waterMeasuring(year=2013, month="08", gcp_conn_id="Dejon_data_Google_Storage", gcs_bucket="dejon_bucket")
+# waterMeasuring(year=2013, month="08", gcp_conn_id="Dejon_data_Google_Storage", gcs_bucket="dejon_bucket")
