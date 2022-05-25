@@ -1,7 +1,8 @@
 import requests
 import time as tm
 import csv
-import with_google_bucket
+import tempfile
+import os
 from airflow.providers.google.cloud.hooks.gcs import GCSHook
 # todays_date = date.today()
 # year = todays_date.year
@@ -65,13 +66,16 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
                     csv_writer.writerow(row.values())
 
                 data_file.close()
+                with tempfile.TemporaryDirectory() as tmp_dir:
+                    tmp_path = os.path.join(tmp_dir, data_file)
+
     object_name = year + month +"_"+ file_name
 
     gcs_hook = GCSHook(gcp_conn_id)
     gcs_hook.upload(
         bucket_name=gcs_bucket,
         object_name=object_name,
-        filename=file_name,
+        filename=tmp_path,
     )
     # with_google_bucket.upload_csv_toGS(file_name)
     return "Done"
