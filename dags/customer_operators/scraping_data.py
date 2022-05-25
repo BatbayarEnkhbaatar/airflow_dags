@@ -74,7 +74,7 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
                     gcs_hook = GCSHook(gcp_conn_id)
                     gcs_hook.upload(
                         bucket_name=gcs_bucket,
-                        object_name=tmp_path+str(year)+month+".csv",
+                        object_name=tmp_path+str(year)+str(month)+".csv",
                         filename=tmp_path,
                     )
     # with_google_bucket.upload_csv_toGS(file_name)
