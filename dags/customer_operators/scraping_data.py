@@ -44,7 +44,7 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
             for j in range(0, len(wmodList)):
                 print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j])
                 # file_path = os.path.join("${AIRFLOW_HOME}/tmp/", file_name)
-                data_file = open(file_name, 'w')
+                # data_file = open(file_name, 'w')
                 Payload = {
                     "serviceKey": "/S1CuHzopeMWDtsc2q26Ezp5Vgpgf2XGBYzYZehUCBgBQpHaZ+GvLIbar8Q+MT7zAliK60Rzoj9kEDMZlIhI4Q==",
                     "pageNo": pageNo,
@@ -56,20 +56,32 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
                 }
                 #  API ACCESS FUNCTIONS ###
                 data = access_api(function, params=Payload)
-                csv_writer = csv.writer(data_file)
-                count = 0
-                for row in data:
-                    if count == 0:
-                        header = row.keys()
-                        csv_writer.writerow(header)
-                        count += 1
-                    csv_writer.writerow(row.values())
-
-                data_file.close()
+                # data_file = open(file_name, 'w')
+                # csv_writer = csv.writer(data_file)
+                # count = 0
+                # for row in data:
+                #     if count == 0:
+                #         header = row.keys()
+                #         csv_writer.writerow(header)
+                #         count += 1
+                #     csv_writer.writerow(row.values())
+                #
+                # data_file.close()
                 with tempfile.TemporaryDirectory() as tmp_dir:
-                    tmp_path = os.path.join(tmp_dir, data_file)
+                    tmp_path = os.path.join(tmp_dir, "tmp_data")
+                    with open(tmp_path, 'w') as file:
+                        csv_writer = csv.writer(file)
+                        count = 0
+                        for row in data:
+                            if count == 0:
+                                header = row.keys()
+                                csv_writer.writerow(header)
+                                count += 1
+                            csv_writer.writerow(row.values())
 
-    object_name = year + month +"_"+ file_name
+                        file.close()
+
+    object_name = str(year) + month + file_name
 
     gcs_hook = GCSHook(gcp_conn_id)
     gcs_hook.upload(
@@ -79,4 +91,4 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
     )
     # with_google_bucket.upload_csv_toGS(file_name)
     return "Done"
-# waterMeasuring(2013, "08")
+waterMeasuring(year=2013, month="08", gcp_conn_id="Dejon_data_Google_Storage", gcs_bucket="dejon_bucket")
