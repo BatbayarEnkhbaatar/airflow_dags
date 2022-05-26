@@ -30,7 +30,7 @@ with DAG(
     ScrapingData = PythonOperator(
     task_id="Scraping_WaterMeasuring_Data_10",
     python_callable = waterMeasuring,
-    op_kwargs={
+    op_args={
         "year" : todays_date.year,
         "month" : todays_date.month,
         "gcp_conn_id": "airflow_gke_gcs_conn_id",
