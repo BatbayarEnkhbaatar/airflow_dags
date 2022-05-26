@@ -3,14 +3,13 @@ import time as tm
 import csv
 import tempfile
 import os
+from datetime import datetime
 from airflow.providers.google.cloud.hooks.gcs import GCSHook
-# todays_date = date.today()
-# year = todays_date.year
-# month = todays_date.month
-
-def waterMeasuring(year, month, conn_id, gcs_bucket):
 
 
+def waterMeasuring(conn_id, gcs_bucket):
+    year = datetime.now().year
+    month = datetime.now().month
     pageNo=1
     numOfRows=31
 
@@ -72,7 +71,7 @@ def waterMeasuring(year, month, conn_id, gcs_bucket):
                         file.close()
                     obj_name = tmp_path+str(year)+str(month)+".csv"
                     print(obj_name, "THE OBJECT FILE WAS CREATED SUCCESSFULLY")
-                    print(gcp_conn_id, "GCP CONNECTION IS BEING USED")
+                    print(conn_id, "GCP CONNECTION IS BEING USED")
                     print(gcs_bucket, "GCP BUCKET IS BEING USED")
 
                     gcs_hook = GCSHook(conn_id=conn_id)
