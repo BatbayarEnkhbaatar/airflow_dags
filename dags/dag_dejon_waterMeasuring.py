@@ -1,9 +1,8 @@
 from datetime import date
 from datetime import datetime, timedelta
-
 from airflow import DAG
-from airflow.operators.python import PythonOperator
-
+from airflow.operators.python_operator import PythonOperator
+# from airflow.operators.python import PythonOperator
 from customer_operators.scraping_data import waterMeasuring
 
 todays_date = date.today()
@@ -33,7 +32,7 @@ with DAG(
         op_args={
             "year": todays_date.year,
             "month": todays_date.month,
-            "gcp_conn_id": "airflow_gke_gcs_conn_id",
+            "conn_id": "airflow_gke_gcs_conn_id",
             "gcs_bucket": "dejon-data-bucket01"
         },
         dag=dag,
