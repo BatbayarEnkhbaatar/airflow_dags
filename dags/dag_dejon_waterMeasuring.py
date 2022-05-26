@@ -15,8 +15,8 @@ with DAG(
         'email': ['batbayar@northstar.kr.co'],
         'email_on_failure': False,
         'email_on_retry': False,
-        'retries': 2,
-        'retry_delay': timedelta(minutes=5),
+        'retries': 5,
+        'retry_delay': timedelta(minutes=1),
 
     },
     description='A simple tutorial DAG',
@@ -34,7 +34,8 @@ with DAG(
         "month" : todays_date.month,
         "gcp_conn_id": "airflow_gke_gcs_conn_id",
         "gcs_bucket": "dejon-data-bucket"
-        }
+        },
+        dag=dag,
     )
 
     ScrapingData
