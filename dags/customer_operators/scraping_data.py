@@ -8,7 +8,7 @@ from airflow.providers.google.cloud.hooks.gcs import GCSHook
 # year = todays_date.year
 # month = todays_date.month
 
-def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
+def waterMeasuring(year, month, conn_id, gcs_bucket):
 
 
     pageNo=1
@@ -75,7 +75,7 @@ def waterMeasuring(year, month, gcp_conn_id, gcs_bucket):
                     print(gcp_conn_id, "GCP CONNECTION IS BEING USED")
                     print(gcs_bucket, "GCP BUCKET IS BEING USED")
 
-                    gcs_hook = GCSHook(gcp_conn_id)
+                    gcs_hook = GCSHook(conn_id=conn_id)
                     gcs_hook.upload(
                         bucket_name=gcs_bucket,
                         object_name= obj_name,
