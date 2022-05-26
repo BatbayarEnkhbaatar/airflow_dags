@@ -5,7 +5,8 @@ from airflow.operators.python_operator import PythonOperator
 # from airflow.operators.python import PythonOperator
 from customer_operators.scraping_data import waterMeasuring
 
-todays_date = date.today()
+year = 2022
+month = "05"
 with DAG(
         'dejon_WaterMeasuring',
         # These args will get passed on to each operator
@@ -30,8 +31,8 @@ with DAG(
         task_id="Scraping_WaterMeasuring_Data_10",
         python_callable=waterMeasuring,
         op_args={
-            "year": todays_date.year,
-            "month": todays_date.month,
+            "year": year,
+            "month": month,
             "conn_id": "airflow_gke_gcs_conn_id",
             "gcs_bucket": "dejon-data-bucket01"
         },
