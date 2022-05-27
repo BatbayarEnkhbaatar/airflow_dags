@@ -6,7 +6,7 @@ import os
 
 # Construct a BigQuery client object.
 client = bigquery.Client()
-credentials_path = "customer_operators/solar-idea-BQ.json"
+credentials_path ="solar-idea-BQ.json"
 
 # print(credentials_path)
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_path
