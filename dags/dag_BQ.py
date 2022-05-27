@@ -22,8 +22,8 @@ with DAG("Ssraping from API", start_date=datetime(2022, 5, 24), schedule_interva
         task_id="Scraping",
         python_callable=waterMeasuring,
         op_kwargs={
-            'year' : '2022',
-            'month' : '03',
-            'target' : '3008A40'
+            'year': '2022',
+            'month': '03',
+            'target': '3008A40'
     }
     )
