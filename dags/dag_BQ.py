@@ -58,6 +58,7 @@ with models.DAG(
             }
         },
         location=LOCATION,
+        bigquery_conn_id="google_BQ_connection"
     )
     # [END howto_operator_bigquery_insert_job]
     execute_insert_query = BigQueryExecuteQueryOperator(
