@@ -1,8 +1,8 @@
 from datetime import date
 from datetime import datetime, timedelta
 from airflow import DAG
-from airflow.operators import PythonOperator
-# from airflow.operators.python import PythonOperator
+# from airflow.operators import PythonOperator
+from airflow.operators.python import PythonOperator
 from customer_operators.scraping_data_BQ import waterMeasuring
 
 
