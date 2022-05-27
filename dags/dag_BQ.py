@@ -1,5 +1,6 @@
 import os
 from airflow import DAG
+from airflow import Variable
 from datetime import datetime, timedelta
 from airflow.operators.python_operator import PythonOperator
 from customer_operators.scraping_data import waterMeasuring
