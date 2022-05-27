@@ -72,9 +72,9 @@ def waterMeasuring(year, month, target):
                 print("ROW # =: ", len(result))# print(result)
 
         return result, result.columns
-year = [2021]
-month = [ "12"]
-target = ["3008A40", "2012F50"]
-data = waterMeasuring (year= year, month=month, target=target)
-print("DATAIS SS= ",data[1])
+# year = [2021]
+# month = [ "12"]
+# target = ["3008A40", "2012F50"]
+# data = waterMeasuring (year= year, month=month, target=target)
+# print("DATAIS SS= ",data[1])
 # print(data.columns)
