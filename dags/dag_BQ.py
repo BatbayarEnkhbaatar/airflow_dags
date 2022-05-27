@@ -15,12 +15,19 @@ LOCATION = "asia-northeast1"
 
 TABLE_1 = "WaterMeasuringList "
 
-
+default_args = {
+    'owner': 'airflow',
+    'depends_on_past': False,
+    'start_date': datetime(2022, 5, 27),
+    'email': ['baggi@example.com'],
+    'email_on_failure': False,
+    'email_on_retry': False,
+    'retries': 1000,
+    'retry_delay': timedelta(minutes=1),
+    'schedule_interval': '@hourly',
+}
 with DAG("Data_from_API",
-         start_date=datetime(2022, 5, 24),
-         schedule_interval = "@hourly",
-         retries= 1000,
-         catchup=False) as dag:
+         catchup=False, default_args= default_args) as dag:
 
     Scraping_API = PythonOperator(
         task_id="Scraping",
