@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "solar-idea-351402",
+  "private_key_id": "24d4fb71e5325155c303426b61a30a869f227f03",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCXJ5ATe+22Mzm0\nemwH5dVLeKUTjpgd6gkt6G41EYztlu418JPu+cUudW1dGfzbNBHxyADYtMj4yuEE\nIdz/8qIzoyVfh+WX+2YUWQpIHs1JIkU8Fk41sD+Yaa9UzRLezT/CEBnaaA8EjDty\nboOqes2LJT1mCpSmo4/lSP4O7us8yUo/45g5qgw0DmQ+0EFKRGy58paFIQf4PnUy\nJcn1mUylbSaBiXO/TIt8z/wHI1uUCPdpZ3qTKAFZmlAW1F9yxdvskqhjvBFKZjbw\no18RfLOhEyqHcp5LV/PGotahBu2aYDETYEG1hbFA6XCYkO2SoUtnSXJMcjHnPNnt\nd7xKCbfJAgMBAAECggEALXcEcp/dnealjkAee3epovRMbuf+oEzTawAVGhhH0/UI\nfKf6zzBIm5NNjGnzMPnmBdwbSRODubXIXeZTo5bXLAIADU6ChCbliuxHV+8P31YU\nDiFFcAet8Umkp7SxXtvMuDIAnL2c+si1XtOX/fDHH3nZkHZRRRhAgX5lkJdToWoR\n7INik0/nIZOHsUbj1Pk7w3LFK1hpQrU5T8aNGiVFOUTKNDNrWV6mz9QTJPlmcfSB\naYdSvq6J9F1E1vngx20niIPoHHy0okoIgXBZYdc42xVCd7OzSoktLDUhDk2jbrU7\nhRWoBPTs4TB7sugWx30uMYcT2rsH9AyN22iDCt9m4wKBgQDKiFFGfGUX5WPFh1FK\na7xF6RBHChM6g9QGu8PKC2UFP0vr1exvooHK0OskwEwVoEWei9wz72kVVAKvJQ4k\n7kRMHLOKWX42+OKMuaSYuKVmM8kuH2RSEZ2o/om6y2H2tTTIygU3nus6F8zmAIDi\nBi4C8/XQcdsywpGaaHlTubN3WwKBgQC/DvzGx316xzaZluydsQTntheRPLx8LREu\nJVkCCshwbguFtSGIEqmRvONx+TS4UJewCBXacOY0dNIB9vqqXjI9WCeTLL480o3o\nVkTfa/66O1w2TTXPUQa3Tm2ssgT3JoKJ31skVuNf9VktexyTKTuKswkstBegmwre\ny5Cr7wlaqwKBgAF1aeBwFOpPJKDPkK5QiFKYkx1v3SOWv3gs8gQKgPfAtPNF3yYO\nrZCgYJErMWEWfmnd6AAXwVH+AObyBWAOtz81FbXxXw9WS4tn6t+OtOI/jTtfzoEo\nz1HgQ22s+U+ljnPDwLXd1yPb+AXQCx2Vnc83opWVvFZpQFM0XWtU8w3xAoGAOl6j\nzz7nEPmHrsizJUINk5TIAnEhzHYgR47VcJBGyEJ2drTtt5qr/4BLpGhUOPM2RGtT\n8daIHgKKnlsMHbyFcMRb4tTKkd5pyE+C3xcpTVARTe2swNeqS5pEW3xPlApJ20FH\noQSClrBoPELeaf8w16D27pdemIyFd6eNXVm7690CgYA1yFFnIYFALPYnFwD+SMKu\nUYPGtiHpnv2HdxAPqSDH/yX8ijtWfOFbjNeNqaEaUDpy36agPwnTEGltavkMQ5gy\nI1yZfR5uqp/uvImK2v/bcwzv3dVOd2XtFW0A5/bwY3BtzfdXwYoesouRqYf4DkJh\neSofuRBBadjg9moOyiDlcg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bigq-serviceaccoung@solar-idea-351402.iam.gserviceaccount.com",
+  "client_id": "109127304266968772550",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigq-serviceaccoung%40solar-idea-351402.iam.gserviceaccount.com"
+}
