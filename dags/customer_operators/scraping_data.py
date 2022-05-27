@@ -1,3 +1,6 @@
+import datetime
+import json
+
 import pandas as pd
 import requests
 import time as tm
@@ -22,12 +25,12 @@ def waterMeasuring(year, month, target):
     numOfRows=31
 
     resultType="JSON"
-    ptNoList=[target]
+    ptNoList=target
     # gcp_conn_id = "Dejon_data_Google_Storage"
     # gcp_conn_id = gcp_conn_id
     #
-    wmyrList=[year]
-    wmodList=[month]
+    wmyrList=year
+    wmodList=month
 
 
     base_url = "http://apis.data.go.kr/1480523/WaterQualityService"
@@ -68,13 +71,17 @@ def waterMeasuring(year, month, target):
                 for row in data:
                     data_file.append(row)
                 result = pd.DataFrame(data_file)
+                t_date = datetime.date.today().year + datetime.date.today().month
                 print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s SCRAPPED ")
                 print("ROW # =: ", len(result))# print(result)
-                result = result.to_json(orient='columns')
+                with open(f'json_data_{t_date}.json', 'w') as outfile:
+                    outfile.write(result)
+                    # result = result.to_json(orient='columns')
         return result
-# year = [2021]
-# month = [ "12"]
-# target = ["3008A40", "2012F50"]
-# data = waterMeasuring (year= year, month=month, target=target)
-# print("DATAIS SS= ",data[1])
+year = [2021]
+month = [ "11", "10", "09", "08", "07", "06"]
+target = ["3008A40", "2012F50"]
+data = waterMeasuring (year= year, month=month, target=target)
+data = json.loads(data)
+print(pd.DataFrame(data))
 # print(data.columns)
