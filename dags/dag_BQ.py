@@ -19,7 +19,7 @@ TABLE_1 = "WaterMeasuringList "
 with DAG("Data_from_API",
          start_date=datetime(2022, 5, 24),
          schedule_interval = "@hourly",
-         retry_delay= timedelta(minutes=1),
+         retries= 1000,
          catchup=False) as dag:
 
     Scraping_API = PythonOperator(
