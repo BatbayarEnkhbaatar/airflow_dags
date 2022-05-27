@@ -22,7 +22,7 @@ def waterMeasuring(year, month, target):
     numOfRows=31
 
     resultType="JSON"
-    ptNoList=target
+    ptNoList=[target]
     # gcp_conn_id = "Dejon_data_Google_Storage"
     # gcp_conn_id = gcp_conn_id
     #
