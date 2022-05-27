@@ -77,10 +77,10 @@ def waterMeasuring(year, month, target):
                 result.to_csv(f"data_{t_date}.csv")
                 # result = result.to_json(orient='columns')
         return result
-year = [2021]
-month = [ "11", "10", "09", "08", "07", "06"]
-target = ["3008A40", "2012F50"]
-data = waterMeasuring (year= year, month=month, target=target)
-data = json.loads(data)
-print(pd.DataFrame(data))
+# year = [2021]
+# month = [ "11", "10", "09", "08", "07", "06"]
+# target = ["3008A40", "2012F50"]
+# data = waterMeasuring (year= year, month=month, target=target)
+# data = json.loads(data)
+# print(pd.DataFrame(data))
 # print(data.columns)
