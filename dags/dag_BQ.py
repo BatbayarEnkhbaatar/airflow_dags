@@ -1,7 +1,8 @@
 import os
-import customer_operators.scraping_data as scr
-from airflow import models
-
+from airflow import DAG
+import datetime
+from airflow.operators.python_operator import PythonOperator
+from customer_operators.scraping_data import waterMeasuring
 from airflow.providers.google.cloud.operators.bigquery import (
     BigQueryExecuteQueryOperator,
     BigQueryInsertJobOperator
@@ -13,52 +14,16 @@ DATASET_NAME = os.environ.get("GCP_BIGQUERY_DATASET_NAME", "solar-idea-351402.de
 LOCATION = "asia-northeast1"
 
 TABLE_1 = "WaterMeasuringList "
-year = [2013, 2014,2015, 2016, 2017, 2018, 2019, 2020,2021]
-month = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
-target = ["3008A40", "2012F50"]
-
-###DATA SCRAPING
 
 
-### END OF DATA SCRAPING
+with DAG("Ssraping from API", start_date=datetime(2022, 5, 24), schedule_interval = "@hourly", catchup=False) as dag:
 
-
-# [START howto_operator_bigquery_query]
-
-s_data = scr.waterMeasuring(year=[2013, 2014,2015, 2016, 2017, 2018, 2019, 2020,2021],
-                                 month=["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-                                 target=target)[0]
-s_columns = scr.waterMeasuring(year=[2013, 2014,2015, 2016, 2017, 2018, 2019, 2020,2021],
-                                 month=["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-                                 target=target)[1]
-INSERT_ROWS_QUERY = (
-    f"INSERT INTO {DATASET_NAME} ({s_columns}) VALUES({s_data})"
-)
-
-# [END howto_operator_bigquery_query]
-
-dag_id = "dejon_WaterMeasuring"
-with models.DAG(
-        dag_id,
-        schedule_interval=None,  # Override to match your needs
-        start_date=days_ago(1),
-        tags=["example"],
-        user_defined_macros={"DATASET": DATASET_NAME, "TABLE": TABLE_1},
-    ) as dag_with_locations:
-    # [START howto_operator_bigquery_insert_job]
-    insert_query_job = BigQueryInsertJobOperator(
-        task_id="insert_query_job",
-        configuration={
-            "query": {
-                "query": INSERT_ROWS_QUERY,
-                "useLegacySql": "False",
-            }
-        },
-        location=LOCATION,
-        bigquery_conn_id="google_BQ_connection"
+    Scraping_API = PythonOperator(
+        task_id="Scraping",
+        python_callable=waterMeasuring,
+        op_kwargs={
+            'year' : '2022',
+            'month' : '03',
+            'target' : '3008A40'
+    }
     )
-    # [END howto_operator_bigquery_insert_job]
-    execute_insert_query = BigQueryExecuteQueryOperator(
-        task_id="execute_insert_query", sql=INSERT_ROWS_QUERY, use_legacy_sql=False, location=LOCATION
-    )
-    insert_query_job
