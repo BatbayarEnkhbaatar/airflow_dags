@@ -26,8 +26,8 @@ def waterMeasuring(year, month, target):
     # gcp_conn_id = "Dejon_data_Google_Storage"
     # gcp_conn_id = gcp_conn_id
     #
-    wmyrList=year
-    wmodList=month
+    wmyrList=[year]
+    wmodList=[month]
 
 
     base_url = "http://apis.data.go.kr/1480523/WaterQualityService"
