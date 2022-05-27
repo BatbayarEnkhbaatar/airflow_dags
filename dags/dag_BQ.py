@@ -32,7 +32,5 @@ with DAG("Data_from_API",
     Scraping_API = PythonOperator(
         task_id="Scraping",
         python_callable=waterMeasuring,
-        op_kwargs={
-            Variable.get("dejon_scrapping_data", deserialize = True)
-    }
+        op_kwargs=Variable.get("dejon_scrapping_data", deserialize = True)
     )
