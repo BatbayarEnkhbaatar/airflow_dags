@@ -76,6 +76,7 @@ def waterMeasuring(year, month, target):
                 print("ROW # =: ", len(result))# print(result)
                 with open(f'json_data_{t_date}.json', 'w') as outfile:
                     outfile.write(result)
+                print(outfile, " file is created")
                     # result = result.to_json(orient='columns')
         return result
 year = [2021]
