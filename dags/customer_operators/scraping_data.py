@@ -1,27 +1,34 @@
+import pandas as pd
 import requests
 import time as tm
-import csv
-import tempfile
+# from google.cloud import bigquery
 import os
-from datetime import datetime
-from airflow.providers.google.cloud.hooks.gcs import GCSHook
+
+# # Construct a BigQuery client object.
+# client = bigquery.Client()
+# credentials_path = "customer_operators/solar-idea-BQ.json"
+#
+# # print(credentials_path)
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_path
+# print(credentials_path)
+# # TODO(developer): Set table_id to the ID of the table to create.s
+# table_id = "solar-idea-351402.dejon_dataset.WaterMeasuringList"
+# table = client.get_table(table_id)
+# generated_schema = [{'name':i.name, 'type':i.field_type} for i in table.schema]
+def waterMeasuring(year, month, target):
 
 
-def waterMeasuring(conn_id, gcs_bucket):
-    year = datetime.now().year
-    month = datetime.now().month
     pageNo=1
     numOfRows=31
 
     resultType="JSON"
-    ptNoList=["3008A40", "2012F50"]
+    ptNoList=target
     # gcp_conn_id = "Dejon_data_Google_Storage"
     # gcp_conn_id = gcp_conn_id
     #
-    wmyrList=[year]
-    wmodList=[month]
-    # wmyrList=["2012", "2013", "2014", "2015", "2016", "2017","2018","2019", "2020", "2021", "2022", {year}]
-    # wmodList=["01","02","03", "04","05","06","07","08","09","10","11","12", {month}]
+    wmyrList=year
+    wmodList=month
+
 
     base_url = "http://apis.data.go.kr/1480523/WaterQualityService"
     # function = "/getRealTimeWaterQualityList"
@@ -30,20 +37,19 @@ def waterMeasuring(conn_id, gcs_bucket):
 
 
     def access_api(function, params):
-        print("Getting results...")
+        # print("Getting results...")
         target = base_url + function
         r = requests.get(target, params).json()
-        tm.sleep(2)
+        # tm.sleep(0.1)
         res = r['getWaterMeasuringList']
         return res['item']
 
-    file_name = "WaterMeasuringList.csv"
+    data_file = []
+    file_name = "data_serviWaterMeasuringList.csv"
     for item in range(0, len(ptNoList)):
         for i in range(0, len(wmyrList)):
             for j in range(0, len(wmodList)):
-                print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j])
-                # file_path = os.path.join("${AIRFLOW_HOME}/tmp/", file_name)
-                # data_file = open(file_name, 'w')
+
                 Payload = {
                     "serviceKey": "/S1CuHzopeMWDtsc2q26Ezp5Vgpgf2XGBYzYZehUCBgBQpHaZ+GvLIbar8Q+MT7zAliK60Rzoj9kEDMZlIhI4Q==",
                     "pageNo": pageNo,
@@ -55,32 +61,20 @@ def waterMeasuring(conn_id, gcs_bucket):
                 }
                 #  API ACCESS FUNCTIONS ###
                 data = access_api(function, params=Payload)
-                tmp_file = "data"
-                with tempfile.TemporaryDirectory() as tmp_dir:
-                    tmp_path = os.path.join(tmp_dir, tmp_file)
-                    with open(tmp_path, 'w') as file:
-                        csv_writer = csv.writer(file)
-                        count = 0
-                        for row in data:
-                            if count == 0:
-                                header = row.keys()
-                                csv_writer.writerow(header)
-                                count += 1
-                            csv_writer.writerow(row.values())
 
-                        file.close()
-                    obj_name = tmp_path+str(year)+str(month)+".csv"
-                    print(obj_name, "THE OBJECT FILE WAS CREATED SUCCESSFULLY")
-                    print(conn_id, "GCP CONNECTION IS BEING USED")
-                    print(gcs_bucket, "GCP BUCKET IS BEING USED")
 
-                    gcs_hook = GCSHook(conn_id=conn_id)
-                    gcs_hook.upload(
-                        bucket_name=gcs_bucket,
-                        object_name= obj_name,
-                        filename=tmp_path,
-                    )
 
-    # with_google_bucket.upload_csv_toGS(file_name)
-    return "Done"
-# waterMeasuring(year=2013, month="08", gcp_conn_id="Dejon_data_Google_Storage", gcs_bucket="dejon_bucket")
+                count = 0
+                for row in data:
+                    data_file.append(row)
+                result = pd.DataFrame(data_file)
+                print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s SCRAPPED ")
+                print("ROW # =: ", len(result))# print(result)
+
+        return result, result.columns
+year = [2021]
+month = [ "12"]
+target = ["3008A40", "2012F50"]
+data = waterMeasuring (year= year, month=month, target=target)
+print("DATAIS SS= ",data[1])
+# print(data.columns)
