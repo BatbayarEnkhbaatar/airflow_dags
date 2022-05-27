@@ -70,7 +70,7 @@ def waterMeasuring(year, month, target):
                 result = pd.DataFrame(data_file)
                 print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s SCRAPPED ")
                 print("ROW # =: ", len(result))# print(result)
-
+                result = result.to_json(orient='columns')
         return result.tojson, result.columns.to_json
 # year = [2021]
 # month = [ "12"]
