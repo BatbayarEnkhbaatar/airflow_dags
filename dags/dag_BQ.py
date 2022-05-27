@@ -1,6 +1,6 @@
 import os
 from airflow import DAG
-from datetime import datetime
+from datetime import datetime, timedelta
 from airflow.operators.python_operator import PythonOperator
 from customer_operators.scraping_data import waterMeasuring
 from airflow.providers.google.cloud.operators.bigquery import (
@@ -19,6 +19,7 @@ TABLE_1 = "WaterMeasuringList "
 with DAG("Data_from_API",
          start_date=datetime(2022, 5, 24),
          schedule_interval = "@hourly",
+         retry_delay= timedelta(minutes=1),
          catchup=False) as dag:
 
     Scraping_API = PythonOperator(
