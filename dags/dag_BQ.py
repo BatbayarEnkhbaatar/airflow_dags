@@ -31,7 +31,9 @@ target = ["3008A40", "2012F50"]
 s_data = scraping.waterMeasuring(year=[2013, 2014,2015, 2016, 2017, 2018, 2019, 2020,2021],
                                  month=["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
                                  target=target)[0]
-s_columns = scraping.waterMeasuring(year=year, month=month, target=target)[1]
+s_columns = scraping.waterMeasuring(year=[2013, 2014,2015, 2016, 2017, 2018, 2019, 2020,2021],
+                                 month=["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+                                 target=target)[1]
 INSERT_ROWS_QUERY = (
     f"INSERT INTO {DATASET_NAME} ({s_columns}) VALUES({s_data})"
 )
