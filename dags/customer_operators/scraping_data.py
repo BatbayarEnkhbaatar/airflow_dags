@@ -71,16 +71,16 @@ def waterMeasuring(year, month, target):
                 for row in data:
                     data_file.append(row)
                 result = pd.DataFrame(data_file)
-                t_date = datetime.date.today().year + datetime.date.today().year
+                t_date = datetime.date.today().strftime("%Y%m")
                 print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s SCRAPPED ")
                 print("ROW # =: ", len(result))# print(result)
                 # result.to_csv(f"data_{t_date}.csv")
-                result = result.to_json(orient='columns')
-        return result
-# year = [2021]
-# month = [ "11", "10", "09", "08", "07", "06"]
-# target = ["3008A40", "2012F50"]
-# data = waterMeasuring (year= year, month=month, target=target)
+                result.to_json(f'data_{t_date}.json')
+        return "success"
+year = [2021]
+month = [ "11", "10", "09", "08", "07", "06"]
+target = ["3008A40", "2012F50"]
+waterMeasuring (year= year, month=month, target=target)
 # data = json.loads(data)
 # print(pd.DataFrame(data))
 # print(data.columns)
