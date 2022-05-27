@@ -71,7 +71,7 @@ def waterMeasuring(year, month, target):
                 print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s SCRAPPED ")
                 print("ROW # =: ", len(result))# print(result)
 
-        return result, result.columns
+        return result.tojson, result.columns.to_json
 # year = [2021]
 # month = [ "12"]
 # target = ["3008A40", "2012F50"]
