@@ -12,6 +12,7 @@ def upload_data(connec_id, bucket_name, source_file_name):
     """Uploads a file to the bucket."""
     # file_name = "WaterMeasuringList.csv"
     try:
+        print("Please wait file is being uploaded")
         # storage_client = storage.Client()
         # bucket = storage_client.bucket(bucket_name)
         # blob = bucket.blob(destination_blob_name)
@@ -29,4 +30,4 @@ def upload_data(connec_id, bucket_name, source_file_name):
         print(e)
         return e
 
-upload_data(connec_id="Dejon_data_Google_Storage", bucket_name="dejon-data-bucket01", source_file_name="WaterMeasuringList.csv")
+# upload_data(connec_id="Dejon_data_Google_Storage", bucket_name="dejon-data-bucket01", source_file_name="WaterMeasuringList.csv")
