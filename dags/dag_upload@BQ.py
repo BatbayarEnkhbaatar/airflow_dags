@@ -38,7 +38,7 @@ default_args = {
 }
 dag = models.DAG (
     'bigquery_insert_dag',
-    schedule_interval=='@once',
+    schedule_interval='@once',
     default_args=default_args
 )
 f = open("result/data_202205.json")
