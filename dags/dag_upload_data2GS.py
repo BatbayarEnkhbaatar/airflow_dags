@@ -38,6 +38,6 @@ with DAG("upload_data2GS",
         op_kwargs= {
             "connec_id":"GS_Conn",
             "bucket_name": "dejon-data-bucket01",
-            "source_file" : "WaterMeasuringList.csv"
+            "source_file_name" : "WaterMeasuringList.csv"
         }
     )
