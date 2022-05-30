@@ -6,7 +6,6 @@ from airflow.operators.python_operator import PythonOperator
 from customer_operators.scraping_data import waterMeasuring
 import json
 from airflow.providers.google.cloud.operators.bigquery import (
-    BigQueryExecuteQueryOperator,
     BigQueryInsertJobOperator
 )
 
