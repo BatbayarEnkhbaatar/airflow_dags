@@ -61,3 +61,4 @@ with DAG("Data_from_API",
         rows=rows
 
     )
+    Scraping_API >> bigquery_insert_data
