@@ -4,6 +4,7 @@ from airflow.models import Variable
 from datetime import datetime, timedelta
 from airflow.operators.python_operator import PythonOperator
 from customer_operators.scraping_data import waterMeasuring
+import json
 from airflow.providers.google.cloud.operators.bigquery import (
     BigQueryExecuteQueryOperator,
     BigQueryInsertJobOperator
@@ -27,10 +28,36 @@ default_args = {
     'schedule_interval': '@hourly',
 }
 with DAG("Data_from_API",
-         catchup=False, default_args= default_args) as dag:
+         catchup=False, default_args=default_args) as dag:
+
 
     Scraping_API = PythonOperator(
         task_id="Scraping",
         python_callable=waterMeasuring,
         op_kwargs=Variable.get("dejon_scrapping_data", deserialize_json=True)
+    )
+####SECOND DAG FILE STARTS HERE
+    f = open("result/data_202205.json")
+    df = json.load(f)
+    rows = []
+    for key, value in df.items():
+        rows.append(
+            {'json': {
+                key: value
+            }
+
+            }
+        )
+
+    bigquery_insert_data = BigQueryInsertJobOperator(
+        task_id="BigQuery_Insert",
+        bigquery_conn_id='google_BQ_connection',
+        dag=dag,
+
+        ## big info
+        project_id=PROJECT_ID,
+        dataset_id=DATASET_NAME,
+        table_id=TABLE_1,
+        rows=rows
+
     )
