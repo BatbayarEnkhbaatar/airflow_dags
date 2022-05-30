@@ -18,7 +18,7 @@ import requests
 
 # # TODO(developer): Set table_id to the ID of the table to create.s
 
-def waterMeasuring(year, month, target, gcp_conn_id, bucket_name):
+def upload_data(year, month, target, gcp_conn_id, bucket_name):
 
 
     pageNo=1
