@@ -73,10 +73,10 @@ def waterMeasuring(year, month, target, gcp_conn_id, bucket_name):
                     object_name=result.to_json(f'data_{t_date}.json'),
                     filename=fn )
         return "success"
-year = [2021]
-month = [ "11", "10", "09", "08", "07", "06"]
-target = ["3008A40", "2012F50"]
-waterMeasuring (year= year, month=month, target=target)
+# year = [2021]
+# month = [ "11", "10", "09", "08", "07", "06"]
+# target = ["3008A40", "2012F50"]
+# waterMeasuring (year= year, month=month, target=target)
 # data = json.loads(data)
 # print(pd.DataFrame(data))
 # print(data.columns)
