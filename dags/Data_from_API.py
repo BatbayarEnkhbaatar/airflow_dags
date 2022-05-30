@@ -4,6 +4,8 @@ from airflow.models import Variable
 from datetime import datetime, timedelta
 from airflow.operators.python_operator import PythonOperator
 from customer_operators.scraping_data import waterMeasuring
+from airflow.utils.decorators import apply_defaults
+from airflow.models.baseoperator import BaseOperator
 import json
 from airflow.providers.google.cloud.operators.bigquery import (
     BigQueryInsertJobOperator
@@ -31,7 +33,7 @@ with DAG("Data_from_API_to_GS",
 
 
     Scraping_API = PythonOperator(
-        task_id="Scraping",
+        task_id="Data_from_API_to_GS",
         python_callable=waterMeasuring,
         op_kwargs=Variable.get("dejon_scrapping_data", deserialize_json=True)
     )
