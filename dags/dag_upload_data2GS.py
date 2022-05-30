@@ -33,10 +33,10 @@ with DAG("upload_data2GS",
 
 
     Scraping_API = PythonOperator(
-        task_id="upload_to_GS_07",
+        task_id="upload_to_GS_08",
         python_callable=upload_data,
         op_kwargs= {
-            "gcp_connec_id":"GS_Conn",
+            "gcp_conn_id":"GS_Conn",
             "bucket_name":"dejon-data-bucket01",
             "year":"2023",
             "month":"03",
