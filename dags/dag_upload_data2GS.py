@@ -34,6 +34,6 @@ with DAG("upload_data2GS",
 
     Scraping_API = PythonOperator(
         task_id="upload_to_GS",
-        python_callable=,upload_data,
+        python_callable=upload_data,
         op_kwargs=Variable.get("dejon_scrapping_data", deserialize_json=True)
     )
