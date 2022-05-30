@@ -36,8 +36,11 @@ with DAG("upload_data2GS",
         task_id="upload_to_GS_06",
         python_callable=upload_data,
         op_kwargs= {
-            "connec_id":"GS_Conn",
+            "gcp_connec_id":"GS_Conn",
             "bucket_name":"dejon-data-bucket01",
-            "source_file_name":"WaterMeasuringList.csv"
+            "year":"2023",
+            "month":"03",
+            "target": "3008A40"
+
         }
     )
