@@ -74,19 +74,12 @@ def upload_data(year, month, target, gcp_conn_id, bucket_name):
                 t_date = datetime.date.today().strftime("%Y%m")
                 print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s SCRAPPED ")
                 print("ROW # =: ", len(result))# print(result)
-                example_data = {'run_date': datetime.date.today(), 'example_data': 12345}
-                gcs_file_path = f"example_data_{['ds_nodash']}.json"
-
-                with tempfile.TemporaryDirectory() as tmp_dir:
-                    tmp_path = os.path.join(tmp_dir, gcs_file_path)
-
-                    with open(tmp_path, 'w') as handle:
-                        json.dump(example_data, handle)
+                result.to_json("data.json", orient="split" )
 
                 gcs_hook = GCSHook(gcp_conn_id)
                 gcs_hook.upload(
                     bucket_name=bucket_name,
-                    object_name=example_data,
-                    filename=tmp_path
+                    object_name="data"+t_date+".csv",
+                    filename="data.json"
                 )
         return "success"
