@@ -6,7 +6,7 @@ import os
 
 # Construct a BigQuery client object.
 client = bigquery.Client()
-credentials_path ="solar-idea-BQ.json"
+credentials_path = "customer_operators/solar-idea-BQ.json"
 
 # print(credentials_path)
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_path
@@ -69,12 +69,10 @@ def waterMeasuring(year, month):
                         data_file.append(row)
                     result = pd.DataFrame(data_file)
                     result.columns = [i.name for i in table.schema]
-                    if len(result) > 0:
-                        # print(result)
-                        result.to_gbq(destination_table="dejon_dataset.WaterMeasuringList", project_id="solar-idea-351402", table_schema=generated_schema, progress_bar=True, if_exists="append")
-                        print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s DATA INSERTED INTO BigQueryDB ")
-                    else:
-                        print("There is no data available in", wmyrList[i], wmodList[j], "for ", ptNoList[item] )
+
+                    result.to_gbq(destination_table="dejon_dataset.WaterMeasuringList", project_id="solar-idea-351402", table_schema=generated_schema, progress_bar=True, if_exists="append")
+                    print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s DATA INSERTED INTO BigQueryDB ")
+                    print("There is no data available in", wmyrList[i], wmodList[j], "for ", ptNoList[item] )
 
                 except:
                     print("There is no data available in ", wmyrList[i], wmodList[j], "for ", ptNoList[item] )
