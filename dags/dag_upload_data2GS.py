@@ -33,7 +33,7 @@ with DAG("upload_data2GS",
 
 
     Scraping_API = PythonOperator(
-        task_id="upload_to_GS_05",
+        task_id="upload_to_GS_06",
         python_callable=upload_data,
         op_kwargs= {
             "connec_id":"GS_Conn",

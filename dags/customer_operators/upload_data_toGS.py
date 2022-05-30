@@ -83,10 +83,10 @@ def waterMeasuring(year, month, target, gcp_conn_id, bucket_name):
                     with open(tmp_path, 'w') as handle:
                         json.dump(example_data, handle)
 
-            gcs_hook = GCSHook(gcp_conn_id)
+                gcs_hook = GCSHook(gcp_conn_id)
                 gcs_hook.upload(
                     bucket_name=bucket_name,
-                    object_name=fn,
-                    filename=fn
+                    object_name=example_data,
+                    filename=tmp_path
                 )
         return "success"
