@@ -35,29 +35,3 @@ with DAG("Data_from_API_&_save2BigQuery",
         python_callable=waterMeasuring,
         op_kwargs=Variable.get("dejon_scrapping_data", deserialize_json=True)
     )
-####SECOND DAG FILE STARTS HERE
-    f = open("result/data_202205.json")
-    df = json.load(f)
-    rows = []
-    for key, value in df.items():
-        rows.append(
-            {'json': {
-                key: value
-            }
-
-            }
-        )
-
-    bigquery_insert_data = BigQueryInsertJobOperator(
-        task_id="BigQuery_Insert",
-        bigquery_conn_id='google_BQ_connection',
-        dag=dag,
-
-        ## big info
-        project_id=PROJECT_ID,
-        dataset_id=DATASET_NAME,
-        table_id=TABLE_1,
-        rows=rows
-
-    )
-    Scraping_API >> bigquery_insert_data
