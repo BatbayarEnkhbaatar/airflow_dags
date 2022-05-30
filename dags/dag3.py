@@ -26,7 +26,7 @@ default_args = {
 sch_interval = None
 
 dag = DAG(
-    'mv_local_to_GCS',
+    'to_save_GCP',
     default_args=default_args,
     tags=["example"],
     catchup=False,
@@ -34,7 +34,7 @@ dag = DAG(
 )
 
 mv_local_gcs = LocalFilesystemToGCSOperator(
-    task_id="local_to_gcs",
+    task_id="to_save_Google",
     src=comp_local_path + "customer_operators/WaterMeasuringList.csv",  # PATH_TO_UPLOAD_FILE
     dst="WaterMeasuringList.csv",  # BUCKET_FILE_LOCATION
     bucket="solar-idea-351402",  # using NO 'gs://' nor '/' at the end, only the project, folders, if any, in dst
