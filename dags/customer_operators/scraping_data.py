@@ -66,12 +66,7 @@ def waterMeasuring(year, month, target, gcp_conn_id, bucket_name):
                 # result.to_csv(f"data_{t_date}.csv")
                 result.to_json(f'result/data_{t_date}.json')
                 fn = "data_"+ t_date + ".json"
-
-                gcs_hook = GCSHook(gcp_conn_id)
-                gcs_hook.upload(
-                    bucket_name=bucket_name,
-                    object_name=result.to_json(f'data_{t_date}.json'),
-                    filename=fn )
+                print("DATA is exportd to JSON format", fn)
         return "success"
 # year = [2021]
 # month = [ "11", "10", "09", "08", "07", "06"]
