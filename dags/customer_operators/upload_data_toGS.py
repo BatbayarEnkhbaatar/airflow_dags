@@ -17,7 +17,7 @@ def upload_data(connec_id, bucket_name, source_file_name):
         # bucket = storage_client.bucket(bucket_name)
         # blob = bucket.blob(destination_blob_name)
         # blob.upload_from_filename(f"{source_file_name}.csv")
-        d_file = f"{source_file_name}".csv
+        d_file = source_file_name
         gcs_hook = GCSHook(connec_id)
         gcs_hook.upload(
             bucket_name= bucket_name,
