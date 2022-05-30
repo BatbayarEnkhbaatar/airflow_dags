@@ -1,24 +1,13 @@
 import datetime
-import json
-
+from airflow.utils.decorators import apply_defaults
+from airflow.models.baseoperator import BaseOperator
+from airflow.providers.google.cloud.hooks.gcs import GCSHook
 import pandas as pd
 import requests
-import time as tm
-# from google.cloud import bigquery
-import os
 
-# # Construct a BigQuery client object.
-# client = bigquery.Client()
-# credentials_path = "customer_operators/solar-idea-BQ.json"
-#
-# # print(credentials_path)
-# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_path
-# print(credentials_path)
 # # TODO(developer): Set table_id to the ID of the table to create.s
-# table_id = "solar-idea-351402.dejon_dataset.WaterMeasuringList"
-# table = client.get_table(table_id)
-# generated_schema = [{'name':i.name, 'type':i.field_type} for i in table.schema]
-def waterMeasuring(year, month, target):
+
+def waterMeasuring(year, month, target, gcp_conn_id, bucket_name):
 
 
     pageNo=1
@@ -76,6 +65,13 @@ def waterMeasuring(year, month, target):
                 print("ROW # =: ", len(result))# print(result)
                 # result.to_csv(f"data_{t_date}.csv")
                 result.to_json(f'result/data_{t_date}.json')
+                fn = "data_"+ t_date + ".json"
+
+                gcs_hook = GCSHook(gcp_conn_id)
+                gcs_hook.upload(
+                    bucket_name=bucket_name,
+                    object_name=result.to_json(f'data_{t_date}.json'),
+                    filename=fn )
         return "success"
 year = [2021]
 month = [ "11", "10", "09", "08", "07", "06"]
