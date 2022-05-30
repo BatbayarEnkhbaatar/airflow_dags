@@ -27,7 +27,7 @@ default_args = {
     'retry_delay': timedelta(minutes=1),
     'schedule_interval': '@hourly',
 }
-with DAG("Data_from_API",
+with DAG("Data_from_API_&_save2BigQuery",
          catchup=False, default_args=default_args) as dag:
 
 
