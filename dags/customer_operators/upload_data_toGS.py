@@ -73,13 +73,16 @@ def upload_data(year, month, target, gcp_conn_id, bucket_name):
                 result = pd.DataFrame(data_file)
                 t_date = datetime.date.today().strftime("%Y%m")
                 print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s SCRAPPED ")
-                print("ROW # =: ", len(result))# print(result)
-                result.to_json("data.json", orient="split" )
+                print("ROW # =: ", len(result))  # print(result)
+                result.to_csv(f"result/data_{t_date}.csv")
+                # result.to_json(f'result/data_{t_date}.json')
+                # fn = "data_"+ t_date + ".json"
+                # print("DATA is exportd to JSON format", fn)
 
                 gcs_hook = GCSHook(gcp_conn_id)
                 gcs_hook.upload(
                     bucket_name=bucket_name,
-                    object_name="data"+t_date+".csv",
+                    object_name="result/data"+t_date+".csv",
                     filename="data.json"
                 )
         return "success"
