@@ -29,12 +29,12 @@ with DAG("WaterMeasuringList",
         op_kwargs=Variable.get("dejon_scrapping_data", deserialize_json=True)
     )
     Upload_GS = PythonOperator(
-        task_id="Temporary_Saving_on_Google_Storage",
+        task_id="Upload_2_Temporary_Saving_on_Google_Storage",
         python_callable=upload_data,
         op_kwargs=Variable.get("gcs_input_params", deserialize_json=True)
     )
     Insert2BQ = GCSToBigQueryOperator(
-        task_id='Data Warehouse_on_BigQuery',
+        task_id='Insert_2_Data_Warehouse_on_BigQuery',
         bucket='dejon-data-bucket01',
         source_objects=['data202205.csv'],
         destination_project_dataset_table="dejon_dataset.WaterMeasuringList_01",
