@@ -113,7 +113,7 @@ with DAG("WaterMeasuringList",
             {"name": "ITEM_SE", "type": "STRING", "mode": "NULLABLE"}
         ],
         write_disposition='WRITE_APPEND',
-        # gcp_conn_id='GS_Conn'
+        conn_id='GS_Conn'
     )
 
     Scraping_API >>Upload_GS >> Insert2BQ
