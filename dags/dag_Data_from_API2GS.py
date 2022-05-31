@@ -36,7 +36,7 @@ with DAG("WaterMeasuringList",
     Insert2BQ = GCSToBigQueryOperator(
         task_id='gcs_to_bigquery',
         bucket='dejon-data-bucket01',
-        source_objects=['dejon-data-bucket01/data202205.csv'],
+        source_objects=['data202205.csv'],
         destination_project_dataset_table="dejon_dataset.WaterMeasuringList",
         schema_fields=[
             {"name": "ROWNO", "type": "INTEGER", "mode": "NULLABLE"},
