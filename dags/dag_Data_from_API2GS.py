@@ -39,7 +39,7 @@ with DAG("WaterMeasuringList",
         source_objects=['data202205.csv'],
         destination_project_dataset_table="dejon_dataset.WaterMeasuringList",
         schema_fields=[
-            {"name": "ROWNO", "type": "STRING", "mode": "NULLABLE"},
+            {"name": "ROWNO", "type": "INTEGER", "mode": "NULLABLE"},
             {"name": "PT_NO", "type": "STRING", "mode": "NULLABLE"},
             {"name": "PT_NM", "type": "STRING", "mode": "NULLABLE"},
             {"name": "ADDR", "type": "STRING", "mode": "NULLABLE"},
@@ -116,4 +116,5 @@ with DAG("WaterMeasuringList",
         # conn_id='GS_Conn'
     )
 
-    Scraping_API >>Upload_GS >> Insert2BQ
+    Scraping_API >> Upload_GS
+    Scraping_API >> Insert2BQ
