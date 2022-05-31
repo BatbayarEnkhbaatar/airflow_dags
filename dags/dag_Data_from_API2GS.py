@@ -41,9 +41,6 @@ with DAG("Data_from_API_to_GS",
     )
     Insert2BigQuery = PythonOperator(
         task_id="BigQuery_Insert",
-        bigquery_conn_id='google_BQ_connection',
-        dag=dag,
-        ## big info
         python_callable=insert2BQ,
         op_kwargs=Variable.get("BQ_input_params", deserialize_json=True)
 
