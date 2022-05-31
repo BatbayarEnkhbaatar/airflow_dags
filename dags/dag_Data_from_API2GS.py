@@ -7,7 +7,7 @@ from customer_operators.scraping_data import waterMeasuring
 from customer_operators.upload_data_toGS import upload_data
 from airflow.providers.google.cloud.transfers.gcs_to_bigquery import GCSToBigQueryOperator
 
-GCS_CONN_ID = os.environ.get("GCS_CONN_ID", "google_BQ_connection")
+GCS_CONN_ID = os.environ.get("GCS_CONN_ID", "GS_conn")
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -113,7 +113,7 @@ with DAG("WaterMeasuringList",
             {"name": "ITEM_SE", "type": "STRING", "mode": "NULLABLE"}
         ],
         write_disposition='WRITE_APPEND',
-        conn_id='GS_Conn'
+        # conn_id='GS_Conn'
     )
 
     Scraping_API >>Upload_GS >> Insert2BQ
