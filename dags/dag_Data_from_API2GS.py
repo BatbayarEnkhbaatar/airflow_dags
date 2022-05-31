@@ -49,4 +49,4 @@ with DAG("Data_from_API_to_GS",
 
     )
 
-    Scraping_API >>Upload_GS
+    Scraping_API >>Upload_GS >> Insert2BigQuery
