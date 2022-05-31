@@ -43,17 +43,11 @@ GCS_CONN_ID = os.environ.get("GCS_CONN_ID", "google_BQ_connection")
 
 
 with models.DAG(
-    "example_salesforce_to_gcs",
+    "GCSToBigQueryOperator",
     schedule_interval='@once',  # Override to match your needs
     start_date=datetime(2021, 1, 1),
     catchup=False,
 ) as dag:
-    create_bucket = GCSCreateBucketOperator(
-        task_id="create_bucket",
-        bucket_name=GCS_BUCKET,
-        project_id=GCP_PROJECT_ID,
-        gcp_conn_id=GCS_CONN_ID,
-    )
 
     # [START howto_operator_salesforce_to_gcs]
 
