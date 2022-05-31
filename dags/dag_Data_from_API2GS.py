@@ -116,5 +116,4 @@ with DAG("WaterMeasuringList",
         # conn_id='GS_Conn'
     )
 
-    Scraping_API >> Upload_GS
-    Scraping_API >> Insert2BQ
+    Scraping_API >> Upload_GS >> Insert2BQ
