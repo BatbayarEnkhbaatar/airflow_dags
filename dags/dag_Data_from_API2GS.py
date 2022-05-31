@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from airflow.operators.python_operator import PythonOperator
 from customer_operators.scraping_data import waterMeasuring
 from customer_operators.upload_data_toGS import upload_data
+from customer_operators.fromGS2BQ import insert2BQ
 
 
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "solar-idea-351402")
@@ -38,4 +39,14 @@ with DAG("Data_from_API_to_GS",
         python_callable=upload_data,
         op_kwargs=Variable.get("gcs_input_params", deserialize_json=True)
     )
+    Insert2BigQuery = PythonOperator(
+        task_id="BigQuery_Insert",
+        bigquery_conn_id='google_BQ_connection',
+        dag=dag,
+        ## big info
+        python_callable=insert2BQ,
+        op_kwargs=Variable.get("BQ_input_params", deserialize_json=True)
+
+    )
+
     Scraping_API >>Upload_GS
