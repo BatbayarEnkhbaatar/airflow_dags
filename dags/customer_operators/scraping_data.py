@@ -63,7 +63,7 @@ def waterMeasuring(year, month, target, gcp_conn_id, bucket_name):
                 t_date = datetime.date.today().strftime("%Y%m")
                 print("TARGET:  ", ptNoList[item], "YEAR: ", wmyrList[i], "MONTH:  ", wmodList[j], "'s SCRAPPED ")
                 print("ROW # =: ", len(result))# print(result)
-                result.to_csv(f"result/data_{t_date}.csv")
+                result.to_csv(f"result/data_{t_date}.csv", index=False)
                 # result.to_json(f'result/data_{t_date}.json')
                 # fn = "data_"+ t_date + ".json"
                 # print("DATA is exportd to JSON format", fn)
