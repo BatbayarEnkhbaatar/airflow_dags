@@ -112,7 +112,7 @@ with DAG("WaterMeasuringList",
             {"name": "ITEM_BA", "type": "STRING", "mode": "NULLABLE"},
             {"name": "ITEM_SE", "type": "STRING", "mode": "NULLABLE"}
         ],
-        write_disposition='WRITE_TRUNCATE',
+        write_disposition='WRITE_APPEND',
         # conn_id='GS_Conn'
     )
 
