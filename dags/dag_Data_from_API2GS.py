@@ -37,7 +37,7 @@ with DAG("WaterMeasuringList",
         task_id='gcs_to_bigquery',
         bucket='dejon-data-bucket01',
         source_objects=['data202205.csv'],
-        destination_project_dataset_table="dejon_dataset.WaterMeasuringList",
+        destination_project_dataset_table="dejon_dataset.WaterMeasuringList_01",
         schema_fields=[
             {"name": "ROWNO", "type": "INTEGER", "mode": "NULLABLE"},
             {"name": "PT_NO", "type": "STRING", "mode": "NULLABLE"},
@@ -112,7 +112,7 @@ with DAG("WaterMeasuringList",
             {"name": "ITEM_BA", "type": "STRING", "mode": "NULLABLE"},
             {"name": "ITEM_SE", "type": "STRING", "mode": "NULLABLE"}
         ],
-        write_disposition='WRITE_APPEND',
+        write_disposition='WRITE_TRUNCUTE',
         # conn_id='GS_Conn'
     )
 
