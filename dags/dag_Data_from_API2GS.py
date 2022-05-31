@@ -29,7 +29,7 @@ with DAG("WaterMeasuringList",
         op_kwargs=Variable.get("dejon_scrapping_data", deserialize_json=True)
     )
     Upload_GS = PythonOperator(
-        task_id="Upload_2_Temporary_Saving_on_Google_Storage",
+        task_id="Upload_2_Temporary_Saving_on_GS",
         python_callable=upload_data,
         op_kwargs=Variable.get("gcs_input_params", deserialize_json=True)
     )
