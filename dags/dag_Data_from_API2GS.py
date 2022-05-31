@@ -40,7 +40,7 @@ with DAG("Data_from_API_to_GS",
         op_kwargs=Variable.get("gcs_input_params", deserialize_json=True)
     )
     Insert2BQ = GCSToBigQueryOperator(
-        task_id='gcs_to_bigquery_example',
+        task_id='gcs_to_bigquery',
         bucket='dejon-data-bucket01',
         source_objects=['dejon-data-bucket01/data202205.csv'],
         destination_project_dataset_table="dejon_dataset.WaterMeasuringList",
