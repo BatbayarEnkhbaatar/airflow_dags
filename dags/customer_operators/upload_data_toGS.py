@@ -82,7 +82,7 @@ def upload_data(year, month, target, gcp_conn_id, bucket_name):
                 gcs_hook = GCSHook(gcp_conn_id)
                 gcs_hook.upload(
                     bucket_name=bucket_name,
-                    object_name="result/data"+t_date+".csv",
-                    filename="data.json"
+                    object_name="data"+t_date+".csv",
+                    filename=f"result/data_{t_date}.csv"
                 )
         return "success"
