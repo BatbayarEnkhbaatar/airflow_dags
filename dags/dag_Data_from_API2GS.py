@@ -39,7 +39,7 @@ with DAG("WaterMeasuringList",
         source_objects=['data202205.csv'],
         destination_project_dataset_table="dejon_dataset.WaterMeasuringList_01",
         schema_fields=[
-            {"name": "ROWNO", "type": "INTEGER", "mode": "NULLABLE"},
+            {"name": "ROWNO", "type": "STRING", "mode": "NULLABLE"},
             {"name": "PT_NO", "type": "STRING", "mode": "NULLABLE"},
             {"name": "PT_NM", "type": "STRING", "mode": "NULLABLE"},
             {"name": "ADDR", "type": "STRING", "mode": "NULLABLE"},
