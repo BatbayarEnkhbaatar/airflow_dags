@@ -17,7 +17,8 @@ default_args = {
     'email_on_retry': False,
     'retries': 1000,
     'retry_delay': timedelta(minutes=1),
-    'schedule_interval': '@hourly',
+    'schedule_interval': timedelta(minutes=5)
+        # schedule_interval=timedelta(days=1),
 }
 with DAG("WaterMeasuringList",
          catchup=False, default_args=default_args) as dag:
