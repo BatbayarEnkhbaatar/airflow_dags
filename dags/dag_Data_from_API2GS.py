@@ -2,6 +2,7 @@ import os
 from airflow import DAG
 from airflow.models import Variable
 from datetime import datetime, timedelta
+from datetime import date
 from airflow.operators.python_operator import PythonOperator
 from customer_operators.scraping_data import waterMeasuring
 from customer_operators.upload_data_toGS import upload_data
@@ -24,7 +25,7 @@ default_args = {
 }
 with DAG("WaterMeasuringList",
          catchup=False, default_args=default_args, schedule_interval=timedelta(minutes=5)) as dag:
-    t_date = datetime.date.today().strftime("%Y%m")
+    t_date = datetime.today().strftime("%Y%m")
     source_object = f"data_{t_date}.csv"
     Scraping_API = PythonOperator(
         task_id="Scrapping_Data",
