@@ -24,20 +24,22 @@ default_args = {
 }
 with DAG("WaterMeasuringList",
          catchup=False, default_args=default_args, schedule_interval=timedelta(minutes=5)) as dag:
+    t_date = datetime.date.today().strftime("%Y%m")
+    source_object = f"data_{t_date}.csv"
     Scraping_API = PythonOperator(
         task_id="Scrapping_Data",
         python_callable=waterMeasuring,
         op_kwargs=Variable.get("dejon_scrapping_data", deserialize_json=True)
     )
-    Upload_GS = PythonOperator(
-        task_id="Upload_2_Temporary_Saving_on_GS",
-        python_callable=upload_data,
-        op_kwargs=Variable.get("gcs_input_params", deserialize_json=True)
-    )
+    # Upload_GS = PythonOperator(
+    #     task_id="Upload_2_Temporary_Saving_on_GS",
+    #     python_callable=upload_data,
+    #     op_kwargs=Variable.get("gcs_input_params", deserialize_json=True)
+    # )
     Insert2BQ = GCSToBigQueryOperator(
         task_id='Insert_2_Data_Warehouse_on_BigQuery',
         bucket='dejon-data-bucket01',
-        source_objects=['data202206.csv'],
+        source_objects=[source_object],
         destination_project_dataset_table="dejon_dataset.WaterMeasuringList_01",
         skip_leading_rows=1,
         autodetect=False,
@@ -119,4 +121,4 @@ with DAG("WaterMeasuringList",
         # conn_id='GS_Conn'
     )
 
-    Scraping_API >> Upload_GS >> Insert2BQ
+    Scraping_API  >> Insert2BQ
