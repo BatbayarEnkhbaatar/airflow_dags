@@ -23,7 +23,7 @@ default_args = {
     # schedule_interval=timedelta(days=1),
 }
 with DAG("WaterMeasuringList",
-         catchup=False, default_args=default_args, schedule_interval=timedelta(minutes=5)) as dag:
+         catchup=False, default_args=default_args, schedule_interval=timedelta(minutes=1)) as dag:
     Scraping_API = PythonOperator(
         task_id="Scrapping_Data",
         python_callable=waterMeasuring,
