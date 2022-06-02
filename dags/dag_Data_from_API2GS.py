@@ -12,7 +12,7 @@ default_args = {
     'depends_on_past': False,
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime(2022, 5, 27, tzinfo="Asia/Seoul"),
+    'start_date': datetime(2022, 5, 27),
     'email': ['baggi@example.com'],
     'email_on_failure': False,
     'email_on_retry': False,
