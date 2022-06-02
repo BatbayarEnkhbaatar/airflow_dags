@@ -37,7 +37,7 @@ with DAG("WaterMeasuringList",
     Insert2BQ = GCSToBigQueryOperator(
         task_id='Insert_2_Data_Warehouse_on_BigQuery',
         bucket='dejon-data-bucket01',
-        source_objects=['data202205.csv'],
+        source_objects=['data202206.csv'],
         destination_project_dataset_table="dejon_dataset.WaterMeasuringList_01",
         skip_leading_rows=1,
         autodetect=False,
