@@ -9,6 +9,7 @@ from airflow.providers.google.cloud.transfers.gcs_to_bigquery import GCSToBigQue
 
 GCS_CONN_ID = os.environ.get("GCS_CONN_ID", "GS_conn")
 default_args = {
+    'depends_on_past': False,
     'owner': 'airflow',
     'depends_on_past': False,
     'start_date': datetime(2022, 5, 27),
@@ -18,12 +19,10 @@ default_args = {
     'retries': 1000,
     'retry_delay': timedelta(minutes=1),
     'schedule_interval': timedelta(minutes=5)
-        # schedule_interval=timedelta(days=1),
+    # schedule_interval=timedelta(days=1),
 }
 with DAG("WaterMeasuringList",
          catchup=False, default_args=default_args) as dag:
-
-
     Scraping_API = PythonOperator(
         task_id="Scrapping_Data",
         python_callable=waterMeasuring,
