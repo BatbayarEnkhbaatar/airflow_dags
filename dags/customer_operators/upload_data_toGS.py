@@ -1,20 +1,14 @@
 from datetime import date
+import datetime
+import pandas as pd
+import requests
 from airflow.providers.google.cloud.hooks.gcs import GCSHook
-import os
+
+
+
 todays_date = date.today()
 year = todays_date.year
 month = todays_date.month
-import json
-import tempfile
-
-
-
-import datetime
-from airflow.utils.decorators import apply_defaults
-from airflow.models.baseoperator import BaseOperator
-from airflow.providers.google.cloud.hooks.gcs import GCSHook
-import pandas as pd
-import requests
 
 # # TODO(developer): Set table_id to the ID of the table to create.s
 
@@ -82,7 +76,7 @@ def upload_data(year, month, target, gcp_conn_id, bucket_name):
                 gcs_hook = GCSHook(gcp_conn_id)
                 gcs_hook.upload(
                     bucket_name=bucket_name,
-                    object_name="data"+t_date+".csv",
+                    object_name="data_"+t_date+".csv",
                     filename=f"result/data_{t_date}.csv"
                 )
         return "success"
