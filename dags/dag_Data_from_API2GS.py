@@ -43,7 +43,7 @@ with DAG("WaterMeasuringList",
         source_objects=[source_object],
         destination_project_dataset_table="dejon_dataset.WaterMeasuringList_01",
         skip_leading_rows=0,
-        autodetect=False,
+        autodetect=True,
         schema_fields=[
             {"name": "ROWNO", "type": "STRING", "mode": "NULLABLE"},
             {"name": "PT_NO", "type": "STRING", "mode": "NULLABLE"},
