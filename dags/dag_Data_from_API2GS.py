@@ -39,7 +39,7 @@ with DAG("WaterMeasuringList",
         bucket='dejon-data-bucket01',
         source_objects=['data202205.csv'],
         destination_project_dataset_table="dejon_dataset.WaterMeasuringList_01",
-        skip_leading_rows =0,
+        # skip_leading_rows=0,
     # autodetect=True,
         schema_fields=[
             {"name": "ROWNO", "type": "STRING", "mode": "NULLABLE"},
